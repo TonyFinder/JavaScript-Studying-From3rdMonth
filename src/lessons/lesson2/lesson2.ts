@@ -20,6 +20,152 @@ console.log('lesson 2');
 // https://learn.javascript.ru/recursion
 // https://www.youtube.com/watch?v=Kuq6oIN3PH0
 
+// Область видимости, лексическое окружение
+// #1. Examples from the links above
+// let clock = "Время глобальное, доступно отовсюду"
+//
+// function street () {
+//     // scope: street
+//     // let clock = "Время на улице"
+//
+//     function building ()  {
+//         // scope: building
+//         // let clock = "Время в здании"
+//
+//         function room ()  {
+//             // scope: room
+//             // let clock = "Время комнате"
+//             console.log(clock)
+//         }
+//         room()
+//     }
+//     building()
+//
+// }
+// street()
+
+
+// #2. Examples from the links above
+// let name = "John";
+//
+// function sayHi() {
+//     alert("Hi, " + name);
+// }
+//
+// name = "Pete";
+//
+// sayHi();
+
+// #3. Examples from the links above
+// function makeWorker() {
+//     let name = "Pete";
+//
+//     return function() {
+//         alert(name);
+//     };
+// }
+//
+// let name = "John";
+//
+// // create a function
+// let work = makeWorker();
+//
+// // call it
+// work();
+
+// #4. Examples from the links above
+// function makeCounter() {
+//     let count = 10;
+//
+//     return function() {
+//         return count++; // есть доступ к внешней переменной "count"
+//     };
+// }
+//
+// let counter = makeCounter();
+//
+// console.log( counter() ); // 0
+// console.log( counter() ); // 1
+// console.log( counter() ); // 2
+
+// #5. Examples from the links above. To make it work: sum(5)(10) - it needs to return a function!!!
+// function sum(first: number) {
+//     return function (second: number) {
+//         return second + first
+//     }
+// }
+// console.log(sum(5)(20))
+
+// #6. Examples from the links above.
+// function inBetween (a: number, b: number) {
+//     return function (x: number) {
+//         return x>=a && x<=b
+//     }
+// }
+// function inArray (array: number[]) {
+//     return function (x: number) {
+//         return array.includes(x)
+//     }
+// }
+//
+// let arr = [1, 2, 3, 4, 5, 6, 7];
+//
+// alert( arr.filter(inBetween(3, 6)) ); // 3,4,5,6
+// alert( arr.filter(inArray([1, 2, 10])) ); // 1,2
+
+//КАРИРОВАНИЕ
+
+// #1. Example of multiply the numbers
+// const multi = (a: number) => {
+//     return (b: number) => {
+//         return (c: number) => {
+//             return a*b*c
+//         }
+//     }
+// }
+//
+// console.log(multi(2)(3)(4))
+
+// #2. Example for discount
+
+// const discount = (discount: number) => {
+//     return (amount: number) => {
+//         return amount * discount
+//     }
+// }
+//
+// let tenPercentDiscount = discount(0.1)
+//
+// console.log(tenPercentDiscount(500))
+
+// #2. Example for the same volume
+
+// const volume = (h: number) => {
+//     return (w: number) => {
+//         return (d: number) => {
+//             return h * w * d
+//         }
+//     }
+// }
+//
+// let hCylinderHeight = volume(100)
+// console.log(hCylinderHeight(5)(2))
+
+// #3. Example for Сurrying custom-made function
+function curry(fn: any, ...args: any) {
+    debugger
+    return (..._arg: any) => {
+        debugger
+        return fn(...args, ..._arg);
+    }
+}
+const multiply = (a: number, b: number, c: number) => {
+    return a * b * c
+}
+let result = curry(multiply, 10)
+console.log(result(2, 15))
+
+
 
 // Task 01
 // Реализовать функцию sum которая суммирует 2 числа следующим образом sum(3)(6) === 9
@@ -60,4 +206,6 @@ console.log('lesson 2');
 // написать функцию, которая повторяет функционал метода flat массива на всю глубину.
 
 // just a plug
-export default () => {};
+
+export default () => {
+};
