@@ -152,23 +152,45 @@ console.log('lesson 2');
 // console.log(hCylinderHeight(5)(2))
 
 // #3. Example for Сurrying custom-made function
-function curry(fn: any, ...args: any) {
-    debugger
-    return (..._arg: any) => {
-        debugger
-        return fn(...args, ..._arg);
-    }
-}
-const multiply = (a: number, b: number, c: number) => {
-    return a * b * c
-}
-let result = curry(multiply, 10)
-console.log(result(2, 15))
+// function curry(fn: any, ...args: any) {
+//     return (..._arg: any) => {
+//         return fn(...args, ..._arg);
+//     }
+// }
+// const multiply = (a: number, b: number, c: number) => {
+//     return a * b * c
+// }
+// let result = curry(multiply, 10)
+// console.log(result(2, 15))
+
+
+// Recursion
+// #1. Example
+// let a = 0
+// // @ts-ignore
+// const rec = () => {
+//     a++
+//     console.log(a)
+//     return a >= 5 ? a : rec()
+// }
+// rec()
+
+
+
+
+
 
 
 
 // Task 01
 // Реализовать функцию sum которая суммирует 2 числа следующим образом sum(3)(6) === 9
+console.log("Task 1")
+/*const sum = (a: number) => {
+    return (b: number) => {
+        return a + b
+    }
+}
+console.log(sum(3)(6))*/
 
 // Task 02
 // Реализовать функцию makeCounter которая работает следующим образом:
@@ -178,6 +200,19 @@ console.log(result(2, 15))
 // const counter2 = makeCounter();
 // counter2(); // 1
 // counter(); // 3
+console.log("Task 2")
+/*const makeCounter = () => {
+    let count = 0
+    return () => {
+        return ++count
+    }
+}
+const counter = makeCounter()
+const counter2 = makeCounter()
+console.log(counter())
+console.log(counter())
+console.log(counter2())
+console.log(counter())*/
 
 // Task 03
 // Переписать функцию из Task 02 так, что бы она принимала число в качестве аргумента и это число было стартовым значением счетчика
@@ -186,6 +221,24 @@ console.log(result(2, 15))
 // decrease: -1
 // reset: установить счетчик в 0;
 // set: установить счетчик в заданное значение;
+console.log("Task 3")
+/*function Counter (this: any, initial: number) {
+    let count = initial
+    this.increase = () =>  ++count
+    this.decrease = () =>  --count
+    this.reset = () => count = 0
+    this.set = () => count = initial
+}
+// @ts-ignore
+let counter = new Counter(5)
+console.log(counter.increase())
+console.log(counter.increase())
+console.log(counter.decrease())
+console.log(counter.decrease())
+console.log(counter.reset())
+console.log(counter.increase())
+console.log(counter.set())
+console.log(counter.decrease())*/
 
 // Task 04*
 // Реализовать функцию superSum которая принимает число в качестве аргумента, которое указывает на количество слагаемых
@@ -198,9 +251,32 @@ console.log(result(2, 15))
 // 6) superSum(3)(2,5)(3,9) //10
 
 // P.S. типизируйте только аргументы, а при вызове функции используйте @ts-ignore
+console.log("Task 4")
+/*const superSum = (count: number) => {
+    if (count <= 0) return 0
+    if (count === 1) return (num: number) => num
+
+    let _args: number[] = []
+    const helper = (...args: number[]) => {
+        _args = [..._args, ...args]
+        if (_args.length >= count) {
+            _args.length = count
+            return _args.reduce( (acc, el) => acc + el, 0 )
+        } else {
+            return helper
+        }
+    }
+    return helper
+}
+// @ts-ignore
+console.log(superSum(3)(2)(5)(3))
+// @ts-ignore
+console.log(superSum(5)(2)(1, 4, 2)(5, 6))*/
 
 // Task 05
 // решить все задачи по рекурсии которые даны в конце статьи https://learn.javascript.ru/recursion
+console.log("Task 5")
+
 
 // Task 06
 // написать функцию, которая повторяет функционал метода flat массива на всю глубину.
