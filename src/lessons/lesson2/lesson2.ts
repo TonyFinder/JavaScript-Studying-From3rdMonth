@@ -176,15 +176,9 @@ console.log('lesson 2');
 // rec()
 
 
-
-
-
-
-
-
 // Task 01
 // Реализовать функцию sum которая суммирует 2 числа следующим образом sum(3)(6) === 9
-console.log("Task 1")
+console.log('Task 1')
 /*const sum = (a: number) => {
     return (b: number) => {
         return a + b
@@ -200,7 +194,7 @@ console.log(sum(3)(6))*/
 // const counter2 = makeCounter();
 // counter2(); // 1
 // counter(); // 3
-console.log("Task 2")
+console.log('Task 2')
 /*const makeCounter = () => {
     let count = 0
     return () => {
@@ -221,7 +215,7 @@ console.log(counter())*/
 // decrease: -1
 // reset: установить счетчик в 0;
 // set: установить счетчик в заданное значение;
-console.log("Task 3")
+console.log('Task 3')
 /*function Counter (this: any, initial: number) {
     let count = initial
     this.increase = () =>  ++count
@@ -251,7 +245,7 @@ console.log(counter.decrease())*/
 // 6) superSum(3)(2,5)(3,9) //10
 
 // P.S. типизируйте только аргументы, а при вызове функции используйте @ts-ignore
-console.log("Task 4")
+console.log('Task 4')
 /*const superSum = (count: number) => {
     if (count <= 0) return 0
     if (count === 1) return (num: number) => num
@@ -275,11 +269,107 @@ console.log(superSum(5)(2)(1, 4, 2)(5, 6))*/
 
 // Task 05
 // решить все задачи по рекурсии которые даны в конце статьи https://learn.javascript.ru/recursion
-console.log("Task 5")
+console.log('Task 5')
+// Вычислить сумму чисел до данного
+// #1
+/*const sumTo = (n: number) => {
+    let sum = 0
+    for (let i = 1; i <= n; i++) sum += i
+    return sum
+}
+console.log(sumTo(100))*/
+// #2
+// @ts-ignore
+/*const sumTo = (n: number) => {
+    return n === 1 ? 1 : n + sumTo(n - 1)
+}
+console.log(sumTo(100))*/
+
+// Вычислить факториал
+// @ts-ignore
+/*
+const factorial = (n: number) => {
+    return n === 1 ? 1 : n * factorial(n -1)
+}
+console.log(factorial(5))
+*/
+
+// Числа Фибоначчи
+/*const fib = (n: number) => {
+    let result = [1, 1]
+    if (n === 1 || n === 2) return result[0]
+    if (n > 2) {
+        for (let i = 2; i < n; i++) {
+            result.push(result[i-1]+result[i-2])
+        }
+        return result[result.length - 1]
+    }
+}
+
+console.log(fib(3)) // 2
+console.log(fib(7)) // 13
+console.log(fib(77)) // 5527939700884757*/
+
+// Вывод односвязного списка
+/*let list = {
+    value: 1,
+    next: {
+        value: 2,
+        next: {
+            value: 3,
+            next: {
+                value: 4,
+                next: null
+            }
+        }
+    }
+};*/
+
+/*// @ts-ignore
+const printList = (object: any) => {
+    return object.next != null ? `${object.value} ${printList(object.next)}` : object.value
+}
+console.log(printList(list))*/
+
+/*// @ts-ignore
+const printList = (object: any) => {
+    while (object.next != null)  {
+        console.log(object.value)
+        object = object.next
+    }
+    console.log(object.value)
+}
+printList(list)*/
+
+// Вывод односвязного списка в обратном порядке
+/*// @ts-ignore
+const printList = (object: any) => {
+    if (object.next) {
+        printList(object.next)
+    }
+    console.log(object.value)
+}
+printList(list)*/
+
+/*// @ts-ignore
+const printList = (object: any) => {
+    let array = []
+    while (object.next) {
+        array.unshift(object.value)
+        object = object.next
+    }
+    array.unshift(object.value)
+    for (let i = 0; i < array.length; i++) {
+        console.log(array[i])
+    }
+}
+printList(list)*/
 
 
 // Task 06
 // написать функцию, которая повторяет функционал метода flat массива на всю глубину.
+
+
 
 // just a plug
 
