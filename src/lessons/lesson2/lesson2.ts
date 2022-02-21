@@ -1,3 +1,5 @@
+import {isArray} from 'util';
+
 console.log('lesson 2');
 
 // Lexical environment
@@ -369,6 +371,18 @@ printList(list)*/
 // Task 06
 // написать функцию, которая повторяет функционал метода flat массива на всю глубину.
 
+let arrayInit = [1, 2, [3, 4, [5, 6, [7, 8, [9, 10]]]]]
+let arrayFinal: number[] = []
+
+// @ts-ignore
+const flatArray = (array: any) => {
+    for (let i = 0; i < array.length; i++) {
+        if (Array.isArray(array[i])) return flatArray(array[i])
+        arrayFinal.push(array[i])
+    }
+    return arrayFinal
+}
+console.log(flatArray(arrayInit))
 
 
 // just a plug
