@@ -95,42 +95,106 @@ console.log('lesson 3');
 // 5) Изучить API по ссылке https://jsonplaceholder.typicode.com/guide/
 // 6) в файле lesson_3.ts реализовать методы get, post, put, delete через axios
 
-const getData = () => {
-    axios
-        .get('https://jsonplaceholder.typicode.com/posts/1')
-        .then(response => console.log("get", response.data))
-}
-getData()
+// Через axios
+// const getData = () => {
+//     axios
+//         .get('https://jsonplaceholder.typicode.com/posts/1')
+//         .then(response => console.log("get", response.data))
+// }
+// getData()
+//
+// const postData = () => {
+//     axios
+//         .post('https://jsonplaceholder.typicode.com/posts', {
+//             id: 101,
+//             title: "Only this",
+//             body: "New item",
+//             userId: 1
+//         })
+//         .then(response => console.log("post", response.data))
+// }
+// postData()
+//
+// const deleteData = () => {
+//     axios
+//         .delete("https://jsonplaceholder.typicode.com/posts/100")
+//         .then(response => console.log("delete", response.data))
+// }
+// deleteData()
+//
+// const updateData = () => {
+//     axios
+//         .put('https://jsonplaceholder.typicode.com/posts/1', {
+//             userId: 1,
+//             id: 1,
+//             body: "New",
+//             title: "Updated"
+//         })
+//         .then(response => console.log("update", response.data))
+// }
+// updateData()
 
-const postData = () => {
-    axios
-        .post('https://jsonplaceholder.typicode.com/posts', {
+// Через async/await
+const mainURL = {
+    baseURL: 'https://jsonplaceholder.typicode.com'
+}
+const axiosInstance = axios.create(mainURL)
+
+const getData = async () => {
+    try {
+        const query = '/posts/100'
+        const {data} = await axiosInstance.get(query)
+        console.log("get", data.title)
+    } catch (e) {
+        console.log("get Error", e)
+    }
+}
+
+const postData = async () => {
+    try {
+        const query = '/posts/'
+        const object = {
             id: 101,
             title: "Only this",
             body: "New item",
             userId: 1
-        })
-        .then(response => console.log("post", response.data))
+        }
+        const {data} = await axiosInstance.post(query, object)
+        console.log("post", data.title)
+    } catch (e) {
+        console.log("post Error", e)
+    }
 }
-postData()
 
-const deleteData = () => {
-    axios
-        .delete("https://jsonplaceholder.typicode.com/posts/100")
-        .then(response => console.log("delete", response.data))
+const deleteData = async () => {
+    try {
+        const query = "/posts/1"
+        const {data} = await axiosInstance.delete(query)
+        console.log("delete", data)
+    } catch (e) {
+        console.log("delete Error", e)
+    }
 }
-deleteData()
 
-const updateData = () => {
-    axios
-        .put('https://jsonplaceholder.typicode.com/posts/1', {
+const updateData = async () => {
+    try {
+        const query = "/posts/1"
+        const object = {
             userId: 1,
             id: 1,
             body: "New",
             title: "Updated"
-        })
-        .then(response => console.log("update", response.data))
+        }
+        const {data} = await axiosInstance.put(query, object)
+        console.log("update", data)
+    } catch (e) {
+        console.log("update Error", e)
+    }
 }
+
+getData()
+postData()
+deleteData()
 updateData()
 
 // just a plug
