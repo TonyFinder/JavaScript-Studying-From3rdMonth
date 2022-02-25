@@ -4,17 +4,31 @@ import './lesson_3';
 
 const Lesson3 = () => {
     const [searchName, setSearchName] = useState('');
-    const [serachResult, setSerachResult] = useState('');
+    const [searchResult, setSearchResult] = useState<any>('');
     const [searchNameByType, setSearchNameByType] = useState('');
-    const [serachResultByType, setSerachResultByType] = useState('');
+    const [searchResultByType, setSearchResultByType] = useState('');
 
-    const searchFilm = () => {
-        API.searchFilmsByTitle(searchName)
+    const searchFilm = async () => {
+        try {
+            const { data } = await API.searchFilmsByTitle(searchName)
+            const { Response, Search, Error} = data
+            console.log(data)
+            Response === "True" ? setSearchResult(Search.map((m: any) => <div key={Math.floor(Math.random()*1000)}>{m.Title}</div>)) : setSearchResult(Error)
+        } catch (e) {
+            console.log("Lesson 3. searchFilm Error", e)
+        }
     };
 
-    const searchByType = (e: React.MouseEvent<HTMLButtonElement>) => {
-        const type: string = e.currentTarget.dataset.t ? e.currentTarget.dataset.t : '';
-        API.searchFilmsByType(searchNameByType, type)
+    const searchByType = async (e: React.MouseEvent<HTMLButtonElement>) => {
+        try {
+            const type: string = e.currentTarget.dataset.t ? e.currentTarget.dataset.t : '';
+            const {data} = await API.searchFilmsByType(searchNameByType, type)
+            const { Search, Response, Error } = data
+            console.log(data)
+            Response === "True" ? setSearchResultByType(Search.map((m: any) => <div key={Math.floor(Math.random()*1000)}>{m.Title}</div>)) : setSearchResultByType(Error)
+        } catch (e) {
+            console.log("Lesson 3. searchByType ERROR", e)
+        }
     }
 
     return (
@@ -25,7 +39,7 @@ const Lesson3 = () => {
                 <input type="text" value={searchName} onChange={(e) => setSearchName(e.currentTarget.value)}/>
                 <button onClick={searchFilm}>Search</button>
                 <div>
-                    {serachResult}
+                    {searchResult}
                 </div>
             </div>
 
@@ -35,7 +49,7 @@ const Lesson3 = () => {
                 <button onClick={searchByType} data-t='movie'>Movie</button>
                 <button onClick={searchByType} data-t='series'>Series</button>
                 <div>
-                    {serachResultByType}
+                    {searchResultByType}
                 </div>
             </div>
         </div>
