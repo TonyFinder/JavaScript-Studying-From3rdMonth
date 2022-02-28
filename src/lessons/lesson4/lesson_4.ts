@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {stringify} from 'querystring';
 
 console.log('lesson 4');
 
@@ -141,10 +142,33 @@ console.log('lesson 4');
 
 console.log('!!!Task 07!!!')
 
-const promiseName = new Promise(()=>{
+let finalResult = {}
 
+const promiseName = new Promise((resolve, reject)=>{
+    setTimeout(()=>{
+        resolve({name: "Anna"})
+    },2000)
 })
+promiseName
+    .then(resp => finalResult = Object.assign({...finalResult}, resp))
 
+const promiseAge = new Promise((resolve, reject)=>{
+    setTimeout(()=>{
+        resolve({age: 16})
+    },3000)
+})
+promiseAge
+    .then(resp => finalResult = Object.assign({...finalResult}, resp))
+
+const promiseCity = new Promise((resolve, reject)=>{
+    setTimeout(()=>{
+        resolve({city: "Arsen"})
+    },4000)
+})
+promiseCity
+    .then(resp => finalResult = Object.assign({...finalResult}, resp))
+
+setTimeout(()=> console.log(finalResult), 5000)
 
 // just a plug
 export default () => {
