@@ -21,19 +21,56 @@ console.log('Lesson 5');
 // https://medium.com/@stasonmars/%D0%BF%D0%BE%D0%B4%D1%80%D0%BE%D0%B1%D0%BD%D0%BE-%D0%BE-%D0%BC%D0%B5%D1%82%D0%BE%D0%B4%D0%B0%D1%85-apply-call-%D0%B8-bind-%D0%BD%D0%B5%D0%BE%D0%B1%D1%85%D0%BE%D0%B4%D0%B8%D0%BC%D1%8B%D1%85-%D0%BA%D0%B0%D0%B6%D0%B4%D0%BE%D0%BC%D1%83-javascript-%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%87%D0%B8%D0%BA%D1%83-ddd5f9b06290
 
 
+
+// Эти манипуляции делались в консоли, потому что там не строгое соответствие и можно работать с объектом window. Описание работы примеров ведутся в отдельном файле JS.
+// Первый пример
+// function f(){
+//     console.log("Function", this)
+// }
+// f()
+//
+// let obj = {name: "Anton"}
+// obj.f = f
+// obj.f()
+
+// Второй пример
+// let obj = {name: 'Evgen'};
+// let obj2 = {
+//     name: "Hanna",
+//     f() {
+//         function inner() {
+//             console.log('Function', this)
+//         }
+//         inner();
+//     }
+// }
+//
+// obj2.f()
+
+
+
 // Task 01
 // Дан объект someObj, реализуйте функцию greeting и присвойте ее ключу объекта с аналогичным именем.
 // Функция должна вернуть строку `My name is ${name}. I am ${age}`, где name и age берутся из свойств объекта
 
-type someObjType = {
-    name: string;
-    age: number;
-}
+// type someObjType = {
+//     name: string;
+//     age: number;
+//     greetings?: ()=> void
+// }
+//
+// let someObj: someObjType = {
+//     name: 'Eugene',
+//     age: 32,
+// }
+// function greeting(){
+//     // @ts-ignore
+//     return `My name is ${this.name}. I am ${this.age}`
+// }
+// someObj.greetings = greeting
+//
+// console.log(someObj.greetings())
 
-let someObj:someObjType = {
-    name: 'Eugene',
-    age: 32
-}
 
 // Task 02
 // реализовать счетчик counter в виде объекта со следующими методами:
@@ -44,18 +81,94 @@ let someObj:someObjType = {
 // rest current count - устанавливает значение счетчика равным 0
 // все методы должны ссылаться на сам объект
 
+// let counter = {
+//     count: 8,
+//     getCurrentCount(){
+//         console.log("Current count - ", this.count)
+//     },
+//     increment(){
+//         this.count ++
+//         console.log("Count was increased to - ", this.count)
+//     },
+//     decrement(){
+//         this.count --
+//         console.log("Count was decreased to - ", this.count)
+//     },
+//     setCurrentCount(newCount: number){
+//         this.count = newCount
+//         console.log("Count was set to - ", this.count)
+//     },
+//     restCurrentCount(){
+//         this.count = 0
+//         console.log("Count was reset to - ", this.count)
+//     }
+// }
+//
+// counter.getCurrentCount()
+// counter.increment()
+// counter.increment()
+// counter.decrement()
+// counter.setCurrentCount(50)
+// counter.getCurrentCount()
+// counter.restCurrentCount()
+// counter.getCurrentCount()
+
+
 // Task 03
 // переделайте код из Task 02, что бы сработал следующий код:
 // counter.setCurrentCount(10).increment().increment().increment().decrement().getCurrentCount() // 12
+
+// let counter = {
+//     count: 8,
+//     getCurrentCount(){
+//         return counter
+//     },
+//     increment(){
+//         this.count++
+//         return counter
+//     },
+//     decrement(){
+//         this.count--
+//         return counter
+//     },
+//     setCurrentCount(newCount: number){
+//         this.count = newCount
+//         return counter
+//     },
+//     restCurrentCount(){
+//         this.count = 0
+//         return counter
+//     }
+// }
+//
+// counter.setCurrentCount(10).increment().increment().increment().decrement().getCurrentCount()
+// console.log(counter.count)
+
 
 // Task 04
 // Написать функцию конструктор myFirstConstructorFunc которая принимает 2 параметра name и age и возвращает объект
 // у которого будут эти свойства и метод greeting из Task 01
 
+// function myFirstConstructorFunc(name: any, age: any) {
+//     // @ts-ignore
+//     this.name = name;
+//     // @ts-ignore
+//     this.age = age;
+// }
+// myFirstConstructorFunc.prototype.greetings = greeting
+//
+// // @ts-ignore
+// let newOne = new myFirstConstructorFunc("Ivan", 30)
+// console.log(newOne.greetings())
+
+
 // Task 05 есть 2 объекта One и Two. С помощью bind и метода sayHello заставьте поздороваться объект One
 
-let One = {name: 'One'};
+// let One = {name: 'One'};
 let Two = {name: 'Two', sayHello: function() {console.log(`Hello, my name is ${this.name}`)}};
+//
+// Two.sayHello.bind(One)()
+
 
 // Task 06
 // создайте объект helperObj у которого есть следующие методы:
@@ -64,10 +177,30 @@ let Two = {name: 'Two', sayHello: function() {console.log(`Hello, my name is ${t
 // greeting - используется функция sayHello из Task 05
 // можно использовать @ts-ignore
 
+let helperObj = {
+    name: '',
+    age: 0,
+    changeName(newName: string) {
+        this.name = newName
+        return helperObj
+    },
+    setAge(newAge: number) {
+        this.age = newAge
+        return helperObj
+    },
+    greetings: Two.sayHello.bind
+}
+
+helperObj.changeName("Anton").setAge(34)
+console.log(helperObj)
+
+
+
 // Bind
 // 1) Дана функция sumTwoNumbers, реализовать функцию bindNumber которая принимает функцию sumTwoNumbers и число, и
 // возвращает другую функцию, которое также принимает число и возвращает сумму этих чисел. Замыкание использовать нельзя
-function sumTwoNumbers(a:number,b:number):number {return a + b};
+
+// function sumTwoNumbers(a:number,b:number):number {return a + b};
 
 // 2) Напишите функцию которая принимает первым аргументом объект One, а вторым helperObj. Данная функция
 // возвращает другую функцию которая принимает строку в качестве аргумента и устанавливает ее свойству name объекта One
