@@ -165,7 +165,7 @@ console.log('Lesson 5');
 // Task 05 есть 2 объекта One и Two. С помощью bind и метода sayHello заставьте поздороваться объект One
 
 // let One = {name: 'One'};
-let Two = {name: 'Two', sayHello: function() {console.log(`Hello, my name is ${this.name}`)}};
+// let Two = {name: 'Two', sayHello: function() {console.log(`Hello, my name is ${this.name}`)}};
 //
 // Two.sayHello.bind(One)()
 
@@ -177,29 +177,29 @@ let Two = {name: 'Two', sayHello: function() {console.log(`Hello, my name is ${t
 // greeting - используется функция sayHello из Task 05
 // можно использовать @ts-ignore
 
-let helperObj = {
-    name: '',
-    age: 0,
-    changeName(newName: string) {
-        this.name = newName
-        return helperObj
-    },
-    setAge(newAge: number) {
-        this.age = newAge
-        return helperObj
-    },
-    greetings: Two.sayHello.bind
-}
-
-helperObj.changeName("Anton").setAge(34)
-console.log(helperObj)
+// let helperObj = {
+//     name: '',
+//     age: 0,
+//     changeName(newName: string) {
+//         this.name = newName
+//         return helperObj
+//     },
+//     setAge(newAge: number) {
+//         this.age = newAge
+//         return helperObj
+//     },
+//     greetings: Two.sayHello
+// }
+//
+// helperObj.changeName("Anton").setAge(34)
+// console.log(helperObj)
+// helperObj.greetings()
 
 
 
 // Bind
 // 1) Дана функция sumTwoNumbers, реализовать функцию bindNumber которая принимает функцию sumTwoNumbers и число, и
 // возвращает другую функцию, которое также принимает число и возвращает сумму этих чисел. Замыкание использовать нельзя
-
 // function sumTwoNumbers(a:number,b:number):number {return a + b};
 
 // 2) Напишите функцию которая принимает первым аргументом объект One, а вторым helperObj. Данная функция
